@@ -12,6 +12,7 @@ export default class TodosView {
         window.onload = function() {
             Object.keys(localStorage).forEach(key => {
                 TodosView.addTodo(new Todo(localStorage.getItem(key)));
+                TodosView.checkDate();
                 console.log(localStorage.getItem(key));
             });
         }
