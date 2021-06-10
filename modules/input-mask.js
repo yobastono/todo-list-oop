@@ -1,4 +1,4 @@
-import TodosView from "./todos-view.js";
+import TodosView from './todos-view.js';
 import  Todo  from "./todo.js";
 
 export default class InputMask {
@@ -11,32 +11,19 @@ export default class InputMask {
         // Event listeners
         this.addTodo();
         this.deleteAllTodos();
+        
     }
 
     addTodo() {
         this.addTodoBtn.addEventListener('click', e => {
             // Set initial id in local storage
             this.todo = new Todo(this.inputField.value);
-            TodosView.addTodo(this.todo);
-
-
-
+            TodosView.addTodo(this.todo.ui);
             TodosView.checkDate();
-            // localStorage.setItem(this.id, this.inputField.value.toString());
-            // console.log(localStorage.getItem(this.id));
-            // window.sessionsStorage.getItem(this.id - 1);  
+            this.addToLocalStorage();
             this.inputField.value = ""; // clearing inputfield
-
-            // Assigning listeners TODO THIS
-            // this.deleteBtn = this.buttons[0];
-            // this.editBtn = this.buttons[1];
-            // this.todo.deleteTodo();
-            // this.todo.editTodo(); 
+            
         });            
-    }
-
-    getInput() {
-        return this.inputField.value;
     }
 
     deleteAllTodos() {
@@ -46,6 +33,12 @@ export default class InputMask {
                 TodosView.listTodoContainer.firstElementChild.remove();
             }
         });
+    }
+
+    addToLocalStorage() {
+        localStorage.setItem(this.todo.basicInfo.id, this.todo.basicInfo.value);
+        // console.log(localStorage.getItem(this.id));
+        // window.sessionsStorage.getItem(this.id - 1);  
     }
 
 

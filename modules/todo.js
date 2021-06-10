@@ -1,12 +1,14 @@
 export default class Todo {
     static pseudoDayCounter = 9;
+    static id = 0;
 
     constructor(value) {  
         // Mocking the days of the month for css highlight when day matches
         // Unique id for the todo
-        this.id = 0;
-        // Value declaration: this will be set throught the listener in the i-mask
-        this.value = value;
+        this.basicInfo = {
+            id: Todo.id,
+            value: value
+        }       
         // if (localStorage.getItem("id") !== null) {
             
         // }
@@ -28,7 +30,17 @@ export default class Todo {
         // Add listeners
         this.deleteTodo();
         this.editTodo();
-        return this.form;
+        this.ui = this.form;
+        Todo.id++;
+    }
+
+    // getters and eventually setters
+    get getValue() {
+        return this.basicInfo.value;
+    }
+
+    get getId() {
+        return this.basicInfo.id;
     }
 
 // -----------------------------private methods----------------------------- // 
@@ -68,7 +80,7 @@ export default class Todo {
         let createdTodoInput = document.createElement('input');
         createdTodoInput.setAttribute('type', 'text');
         createdTodoInput.readOnly = true; // It's not editable at this point
-        createdTodoInput.value = this.value;
+        createdTodoInput.value = this.basicInfo.value;
         return createdTodoInput;
     }
 

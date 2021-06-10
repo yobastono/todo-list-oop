@@ -1,9 +1,9 @@
-// import { TodosView } from './todos-view.js';
 import MainPage from './modules/main-page.js';
 import InputMask from './modules/input-mask.js';
+import TodosView from './modules/todos-view.js';
 
-// new MainPage(new InputMask(), new TodosView());
-
-new MainPage(new InputMask());
+TodosView.loadTodos();
+new InputMask();
+// new MainPage(new InputMask());
 
 
