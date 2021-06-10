@@ -17,7 +17,6 @@ export default class InputMask {
         this.addTodoBtn.addEventListener('click', e => {
             // Set initial id in local storage
             this.todo = new Todo(this.inputField.value);
-            // this.todo.value = this.inputField.value;
             TodosView.addTodo(this.todo);
 
 
@@ -42,9 +41,9 @@ export default class InputMask {
 
     deleteAllTodos() {
         this.deleteAllBtn.addEventListener('click', e => {
-            this.counter = 1;
-            while ( this.listTodoContainer.firstElementChild ) {
-                this.listTodoContainer.firstElementChild.remove();
+            Todo.pseudoDayCounter = 8;
+            while ( TodosView.listTodoContainer.firstElementChild ) {
+                TodosView.listTodoContainer.firstElementChild.remove();
             }
         });
     }

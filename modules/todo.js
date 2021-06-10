@@ -1,8 +1,8 @@
 export default class Todo {
+    static pseudoDayCounter = 9;
 
     constructor(value) {  
         // Mocking the days of the month for css highlight when day matches
-        this.pseudoDayCounter = 1;
         // Unique id for the todo
         this.id = 0;
         // Value declaration: this will be set throught the listener in the i-mask
@@ -20,8 +20,14 @@ export default class Todo {
         this.form.appendChild(this.div);
         this.div.appendChild(this.labelDate);
         this.div.appendChild(this.createdTodoInput);
-        this.div.appendChild(this.todoButtons[0]);
-        this.div.appendChild(this.todoButtons[1]);
+        this.deleteBtn = this.todoButtons[0];
+        this.editBtn = this.todoButtons[1];
+        this.div.appendChild(this.deleteBtn);
+        this.div.appendChild(this.editBtn);
+
+        // Add listeners
+        this.deleteTodo();
+        this.editTodo();
         return this.form;
     }
 
@@ -44,13 +50,16 @@ export default class Todo {
         // Create Date
         let labelDate = document.createElement('span');
         labelDate.classList.add('.input-group-addon');
-        let date = new Date(2021, 6, this.pseudoDayCounter);
+        let date = new Date(2021, 6, Todo.pseudoDayCounter);
         let year = date.getFullYear();
         let month = date.getMonth();
         let day = date.getDate();
-        this.pseudoDayCounter++; // mocking days
+        // mocking days
+        if (day < 10) day = "0" + day;
+        if (month < 10) month = "0" + month;
         let dateShort = day + "-" + month + "-" + year;
         labelDate.textContent = dateShort;
+        Todo.pseudoDayCounter++; // increase counter for the next todo
         return labelDate;
     }
 
@@ -78,28 +87,9 @@ export default class Todo {
         return buttons;
     }
 
-
-    
-
-    toggleEditConfirm(e) {
-        this.saveBtn = document.createElement('button');
-        this.saveBtn.classList.add('btn', 'btn-success');
-        this.saveBtn.type = 'button';
-        this.saveBtn.textContent = "Save";
-        this.editBtn = e.target;
-        this.editBtn.insertAdjacentElement('beforebegin', this.saveBtn);
-        this.editBtn.classList.add('hidden');
-        this.saveBtn.addEventListener('click', (e) => {
-            e.target.parentNode.children[0].readOnly = true;
-            console.log('Todo edited and saved');
-            this.editBtn.classList.remove('hidden');
-            this.saveBtn.classList.add('hidden');
-        });
-    }
-
     editTodo() {
         this.editBtn.addEventListener('click', e => {
-            e.target.parentNode.children[0].readOnly = false;
+            e.target.parentNode.children[1].readOnly = false;
             console.log("You can edit now.");
             this.toggleEditConfirm(e);
         });
@@ -107,15 +97,25 @@ export default class Todo {
 
     deleteTodo() {
         this.deleteBtn.addEventListener('click', e => {
-            let targetElement = e.target.parentNode.parentNode;
-            targetElement.parentNode.removeChild(targetElement);
+            e.target.parentNode.parentNode.remove();
         });
     }
 
-    // // Setter and eventually getter
-    // set value(value) {
-    //     this.value = value;
-    // }
+    toggleEditConfirm(e) {
+        this.saveBtn = document.createElement('button');
+        this.saveBtn.classList.add('btn', 'btn-success');
+        this.saveBtn.type = 'button';
+        this.saveBtn.textContent = "Save";
+        this.editBtn = e.target; // Since this.editBtn is always the last created and we want maybe to edit a todo in the middle
+        this.editBtn.insertAdjacentElement('beforebegin', this.saveBtn);
+        this.editBtn.classList.add('hidden');
+        this.saveBtn.addEventListener('click', e => {
+            e.target.parentNode.children[1].readOnly = true;
+            console.log('Todo edited and saved');
+            this.editBtn.classList.remove('hidden');
+            this.saveBtn.classList.add('hidden');
+        });
+    }
 
 //     displayTodos() {
 //         window.addEventListener('load', e => {
