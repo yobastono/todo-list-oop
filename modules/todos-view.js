@@ -3,15 +3,18 @@ import Todo from "./todo.js";
 export default class TodosView {
     static todos = [];
     static listTodoContainer = document.querySelector('.list-todo-container');
+    static maxId = 0;
 
     static addTodo(todo) {
-        TodosView.listTodoContainer.appendChild(todo.ui);
+        TodosView.listTodoContainer.appendChild(todo.form);
+        TodosView.maxId++;
     }
 
     static loadTodos() {
         window.onload = function() {
-            Object.keys(localStorage).forEach(key => {
-                TodosView.addTodo(new Todo(localStorage.getItem(key)));
+            Object.keys(localStorage).sort().forEach(key => {
+                TodosView.maxId = parseInt(key);
+                TodosView.addTodo(new Todo(localStorage.getItem(key), parseInt(key)));
                 TodosView.checkDate();
                 console.log(localStorage.getItem(key));
             });

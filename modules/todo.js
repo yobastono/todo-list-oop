@@ -2,13 +2,15 @@ export default class Todo {
     static pseudoDayCounter = 9;
     static id = 0;
 
-    constructor(value) {  
+    constructor(value, id) {  
         // Mocking the days of the month for css highlight when day matches
         // Unique id for the todo
         this.basicInfo = {
-            id: Todo.id,
+            id: id,
             value: value
-        }       
+        }
+
+        // this.basicInfo['id'] = this.setId(id);
         // if (localStorage.getItem("id") !== null) {
             
         // }
@@ -30,18 +32,19 @@ export default class Todo {
         // Add listeners
         this.deleteTodo();
         this.editTodo();
-        this.ui = this.form;
-        Todo.id++;
+
     }
+
+
+    //     if (id) return id;
+    //     else return Todo.id;
+    // }
 
     // getters and eventually setters
     get getValue() {
         return this.basicInfo.value;
     }
 
-    get getId() {
-        return this.basicInfo.id;
-    }
 
 // -----------------------------private methods----------------------------- // 
     

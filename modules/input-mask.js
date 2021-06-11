@@ -17,7 +17,7 @@ export default class InputMask {
     addTodo() {
         this.addTodoBtn.addEventListener('click', e => {
             // Set initial id in local storage
-            this.todo = new Todo(this.inputField.value);
+            this.todo = new Todo(this.inputField.value, TodosView.maxId);
             TodosView.addTodo(this.todo);
             TodosView.checkDate();
             this.addToLocalStorage();
