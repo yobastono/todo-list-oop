@@ -16,15 +16,22 @@ export default class InputMask {
 
     addTodo() {
         this.addTodoBtn.addEventListener('click', e => {
-            // Set initial id in local storage
-            this.todo = new Todo(this.inputField.value, TodosView.maxId);
-            TodosView.addTodo(this.todo);
-            TodosView.checkDate();
-            this.addToLocalStorage();
-            this.inputField.value = ""; // clearing inputfield
-            
+            this.addListener();
+        });
+        
+        this.inputField.addEventListener('keyup', e => {
+            if (e.keyCode === 13) this.addListener();
         });            
     }
+
+    addListener() {
+        this.todo = new Todo(this.inputField.value, TodosView.maxId);
+        TodosView.addTodo(this.todo);
+        TodosView.checkDate();
+        this.addToLocalStorage();
+        this.inputField.value = "";
+    }
+
 
     deleteAllTodos() {
         this.deleteAllBtn.addEventListener('click', e => {

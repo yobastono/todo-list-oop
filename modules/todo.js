@@ -129,7 +129,14 @@ export default class Todo {
         this.editBtn.insertAdjacentElement('beforebegin', this.saveBtn);
         this.editBtn.classList.add('hidden');
         this.saveBtn.addEventListener('click', e => {
-            e.target.parentNode.children[1].readOnly = true;
+            let form = e.target.parentNode.parentNode;
+            let id = form.getAttribute('id');
+            let todoField = e.target.parentNode.children[1];
+            let value = todoField.value; 
+            todoField.readOnly = true;
+            // e.target.parentNode.children[1].readOnly = true;
+            // e.target.parentNode.children[1].readOnly = true;
+            localStorage.setItem(id, value);
             console.log('Todo edited and saved');
             this.editBtn.classList.remove('hidden');
             this.saveBtn.classList.add('hidden');
