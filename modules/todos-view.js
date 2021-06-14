@@ -3,12 +3,15 @@ import Todo from "./todo.js";
 export default class TodosView {
     static todos = [];
     static listTodoContainer = document.querySelector('.list-todo-container');
+    static listTodoContainerProgress = document.querySelector('.list-todo-container-progress');
+    static listTodoContainerEnded = document.querySelector('.list-todo-container-ended');
     static maxId = 0;
 
     static addTodo(todo) {
         TodosView.listTodoContainer.appendChild(todo.form);
         todo.form.setAttribute('id', TodosView.maxId);
         TodosView.maxId++;
+        TodosView.dragTodo();
     }
 
     static loadTodos() {
@@ -38,5 +41,18 @@ export default class TodosView {
         } 
     }
 
- 
-}
+
+    static dragTodo() {
+        TodosView.listTodoContainerProgress.addEventListener('dragover', evt => {
+            evt.preventDefault();
+        });
+
+        TodosView.listTodoContainerProgress.addEventListener('drop', evt => {
+            evt.preventDefault();
+            let data = evt.dataTransfer.getData("text");
+            evt.target.style.color = 'green';
+            evt.target.appendChild(document.getElementById(data));
+        });
+        }
+    }
+

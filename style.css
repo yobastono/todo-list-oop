@@ -5,3 +5,13 @@
 .hidden {
     display: none;
 }
+
+.single-item {
+    border-style: solid;
+    border-color: teal;
+}
+
+.dragging {
+    border-style: solid;
+    background-color:red;
+}

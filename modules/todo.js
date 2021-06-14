@@ -33,6 +33,7 @@ export default class Todo {
         // Add listeners
         this.deleteTodo();
         this.editTodo();
+        this.drag();
 
     }
 
@@ -142,6 +143,17 @@ export default class Todo {
             this.saveBtn.classList.add('hidden');
         });
     }
+
+    drag() {
+        this.form.setAttribute('draggable', true);
+        this.form.addEventListener('dragstart', evt => {
+            evt.dataTransfer.setData("text", evt.target.id);
+            this.form.classList.add('draggable');
+            console.log("start dragging");
+        });
+    }
+
+
 
 //     displayTodos() {
 //         window.addEventListener('load', e => {
