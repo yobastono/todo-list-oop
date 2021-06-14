@@ -30,8 +30,15 @@ export default class InputMask {
         this.deleteAllBtn.addEventListener('click', e => {
             Todo.pseudoDayCounter = 8;
             while ( TodosView.listTodoContainer.firstElementChild ) {
+                let nodeId = TodosView.
+                                listTodoContainer.
+                                firstElementChild.getAttribute('id');
+                localStorage.removeItem(nodeId);
                 TodosView.listTodoContainer.firstElementChild.remove();
+
             }
+            // not using this because in the future other data could be saved into localStorage
+            // localStorage.clear();
         });
     }
 

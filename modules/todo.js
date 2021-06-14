@@ -7,7 +7,8 @@ export default class Todo {
         // Unique id for the todo
         this.basicInfo = {
             id: id,
-            value: value
+            value: value,
+            status: "active"
         }
 
         // this.basicInfo['id'] = this.setId(id);
@@ -112,7 +113,10 @@ export default class Todo {
 
     deleteTodo() {
         this.deleteBtn.addEventListener('click', e => {
-            e.target.parentNode.parentNode.remove();
+            let node = e.target.parentNode.parentNode;
+            let nodeId = node.getAttribute('id');
+            localStorage.removeItem(nodeId);
+            node.remove();
         });
     }
 

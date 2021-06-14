@@ -7,6 +7,7 @@ export default class TodosView {
 
     static addTodo(todo) {
         TodosView.listTodoContainer.appendChild(todo.form);
+        todo.form.setAttribute('id', TodosView.maxId);
         TodosView.maxId++;
     }
 
